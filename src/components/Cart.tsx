@@ -1,8 +1,8 @@
-import { useCart  } from "../contexts/CartContext";
+import { useCart } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, clearCart , IncreaseQuantity,DecreaseQuantity } = useCart(); 
+  const { cart, clearCart, IncreaseQuantity, DecreaseQuantity } = useCart();
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cart.length === 0) {
@@ -17,15 +17,32 @@ const Cart = () => {
       <h2 className="mb-4">Your Items In The Cart</h2>
       <ul className="list-group mb-3">
         {cart.map((item, index) => (
-          <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+          <li
+            key={index}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
             <div>
-              <strong>{item.name}</strong> <span className="text-muted">x {item.quantity}</span>
+              <strong>{item.name}</strong>{" "}
+              <span className="text-muted ">{item.quantity}</span>
             </div>
-            <span className="text-success">${(item.price * item.quantity).toFixed(2)}</span>
-           <div>
-             <button className="btn" onClick={()=>DecreaseQuantity(item.id)}>-</button>
-            <button className="btn" onClick={()=>IncreaseQuantity(item.id)}>+</button>
-           </div>
+
+            <div>
+              <span className="text-success me-2">
+                ${(item.price * item.quantity).toFixed(2)}
+              </span>
+              <button
+                className="btn border"
+                onClick={() => DecreaseQuantity(item.id)}
+              >
+                -
+              </button>
+              <button
+                className="btn border ms-2"
+                onClick={() => IncreaseQuantity(item.id)}
+              >
+                +
+              </button>
+            </div>
           </li>
         ))}
       </ul>
